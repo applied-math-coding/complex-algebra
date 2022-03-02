@@ -16,6 +16,19 @@ complex_add!(&c<T>, &c<T>, T);
 complex_add!(c<T>, &c<T>, T);
 complex_add!(&c<T>, c<T>, T);
 
+macro_rules! complex_real_add {
+  ($LHS:ty, $T:tt ) => {
+    impl<$T: Add<Output = $T> + Copy + PartialEq> Add<$T> for $LHS {
+      type Output = c<$T>;
+      fn add(self, rhs: $T) -> Self::Output {
+        c(self.0 + rhs, self.1)
+      }
+    }
+  };
+}
+complex_real_add!(c<T>, T);
+complex_real_add!(&c<T>, T);
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -41,5 +54,11 @@ mod tests {
     let z2 = c(3f64, 4f64);
     let z3 = c(0f64, 0f64);
     assert_eq!(&z1 + (&z2 + &z3), c(4.0, 6.0));
+  }
+
+  #[test]
+  fn test_add_4() {
+    let z = c(1f64, 2f64);
+    assert_eq!(&z + 3.0, c(4.0, 2.0));
   }
 }

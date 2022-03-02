@@ -21,6 +21,21 @@ complex_mul!(&c<T>, &c<T>, T);
 complex_mul!(c<T>, &c<T>, T);
 complex_mul!(&c<T>, c<T>, T);
 
+macro_rules! complex_real_mul {
+  ($LHS:ty, $T:tt ) => {
+    impl<$T: Add<Output = $T> + Mul<Output = $T> + Sub<Output = $T> + Copy + PartialEq> Mul<$T>
+      for $LHS
+    {
+      type Output = c<$T>;
+      fn mul(self, rhs: $T) -> Self::Output {
+        c(self.0 * rhs, self.1 * rhs)
+      }
+    }
+  };
+}
+complex_real_mul!(c<T>, T);
+complex_real_mul!(&c<T>, T);
+
 #[cfg(test)]
 mod tests {
   use super::*;
@@ -51,5 +66,17 @@ mod tests {
     let z1 = c(3i32, 2i32);
     let z2 = c(1i32, 4i32);
     assert_eq!(z1 * &z2, c(-5i32, 14i32));
+  }
+
+  #[test]
+  fn test_mul_5() {
+    let z = c(3i32, 2i32);
+    assert_eq!(z * 3, c(9, 6));
+  }
+
+  #[test]
+  fn test_mul_6() {
+    let z = c(3i32, 2i32);
+    assert_eq!(&z * 3, c(9, 6));
   }
 }

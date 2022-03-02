@@ -6,26 +6,30 @@ use std::ops::{Add, Mul, Neg};
 
 #[allow(non_camel_case_types)]
 #[derive(Debug, PartialEq, Clone)]
-pub struct c<T: Copy + PartialEq>(T, T);
+pub struct c<T: Copy + PartialEq>(pub T, pub T);
 
 impl<T: Copy + PartialEq> c<T> {
+  /// Extracts the real part of the complex number.
   #[allow(non_snake_case)]
   pub fn Re(&self) -> T {
     self.0
   }
 
+  /// Extracts the imaginary part of the complex number.
   #[allow(non_snake_case)]
   pub fn Im(&self) -> T {
     self.1
   }
 }
 
+/// Returns the conjugated complex number.
 impl<T: Copy + PartialEq + Neg<Output = T>> c<T> {
   pub fn conj(&self) -> c<T> {
     c(self.0, -self.1)
   }
 }
 
+/// Returns the square of the euclidean norm: `|z|^2`
 impl<T: Copy + PartialEq + Add<Output = T> + Mul<Output = T>> c<T> {
   pub fn r_square(&self) -> T {
     self.0 * self.0 + self.1 * self.1
