@@ -5,7 +5,7 @@ mod sub;
 use std::ops::{Add, Mul, Neg};
 
 #[allow(non_camel_case_types)]
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq, Copy, Clone)]
 pub struct c<T: Copy + PartialEq>(pub T, pub T);
 
 impl<T: Copy + PartialEq> c<T> {
