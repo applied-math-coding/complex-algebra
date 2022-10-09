@@ -2,6 +2,7 @@ mod add;
 mod mul;
 mod neg;
 mod sub;
+mod div;
 use std::ops::{Add, Mul, Neg};
 
 #[allow(non_camel_case_types)]
