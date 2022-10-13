@@ -40,7 +40,7 @@
 //! ```
 
 mod complex;
-pub use complex::c;
+pub use complex::*;
 use std::ops::Sub;
 
 /// Takes a real and transforms it to a number of type `c`.
@@ -51,5 +51,23 @@ use std::ops::Sub;
 /// assert_eq!(re(3), c(3, 0))
 /// ```
 pub fn re<T: Copy + PartialEq + Sub<Output = T>>(r: T) -> c<T> {
-  c(r, r - r)
+    c(r, r - r)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_exp() {
+        let z = c(0.0, 2.0 * std::f64::consts::PI);
+        println!("{:?}", c::exp(z));
+    }
+
+    #[test]
+    fn test_pow() {
+        let z = c(0.0, 1.0);
+        println!("{:?}", z.pow(2));
+        println!("{:?}", z.pow(3));
+    }
 }
