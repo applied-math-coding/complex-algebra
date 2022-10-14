@@ -53,21 +53,3 @@ use std::ops::Sub;
 pub fn re<T: Copy + PartialEq + Sub<Output = T>>(r: T) -> c<T> {
     c(r, r - r)
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_exp() {
-        let z = c(0.0, 2.0 * std::f64::consts::PI);
-        println!("{:?}", c::exp(z));
-    }
-
-    #[test]
-    fn test_pow() {
-        let z = c(0.0, 1.0);
-        println!("{:?}", z.pow(2));
-        println!("{:?}", z.pow(3));
-    }
-}

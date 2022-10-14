@@ -14,3 +14,14 @@ macro_rules! exp_macro {
         }
     };
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_exp() {
+        let z = c(0.0, 2.0 * std::f64::consts::PI);
+        println!("{:?}", c::exp(z));
+    }
+}

@@ -11,7 +11,7 @@ macro_rules! pow_macro_single {
             fn pow(&self, n: $I) -> c<$T> {
                 let r = $T::sqrt(self.r_square());
                 let phi = if r.is_normal() {
-                    $T::acos(self.Re() / r)
+                    $T::asin(self.Im() / r)
                 } else {
                     0.0
                 };
@@ -29,4 +29,19 @@ macro_rules! pow_macro {
     crate::pow_macro_single!($I, f32);
   )*
 };
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_pow() {
+        let z = c(0.0, -1.0);
+        println!("{:?}", z.pow(2));
+        println!("{:?}", z.pow(3));
+        println!("{:?} {:?}", z * z * z, z.pow(3));
+        let w = c(10.00001, 10.00001);
+        println!("{:?} {:?}", w * w * w, w.pow(3));
+    }
 }
