@@ -1,6 +1,6 @@
 [package]
 name = "complex_algebra"
-version = "0.1.7"
+version = "0.1.8"
 edition = "2018"
 license = "MIT"
 description = "A crate supporting complex number algebra"

@@ -1,17 +1,29 @@
 mod add;
+mod cos;
+mod cosh;
 mod div;
 mod exp;
 mod mul;
 mod neg;
 mod pow;
+mod sin;
+mod sinh;
 mod sub;
+pub use cos::Cos;
+pub use cosh::Cosh;
 pub use exp::Exp;
 pub use pow::Pow;
+pub use sin::Sin;
+pub use sinh::Sinh;
 use std::ops::{Add, Mul, Neg};
 
+use crate::cos_macro;
+use crate::cosh_macro;
 use crate::exp_macro;
 use crate::pow_macro;
 use crate::pow_non_neg_macro;
+use crate::sin_macro;
+use crate::sinh_macro;
 
 #[allow(non_camel_case_types)]
 #[derive(Debug, PartialEq, Copy, Clone)]
@@ -50,6 +62,14 @@ exp_macro!(f32);
 pow_non_neg_macro!(u8, u32, u64, u128);
 pow_macro!(i8, i32, i64, i128; u8, u32, u64, u128; f32);
 pow_macro!(i8, i32, i64, i128; u8, u32, u64, u128; f64);
+cos_macro!(f32);
+cos_macro!(f64);
+sin_macro!(f32);
+sin_macro!(f64);
+sinh_macro!(f32);
+sinh_macro!(f64);
+cosh_macro!(f32);
+cosh_macro!(f64);
 
 #[cfg(test)]
 mod tests {
