@@ -1,16 +1,17 @@
 mod add;
 mod div;
+mod exp;
 mod mul;
 mod neg;
-mod sub;
-mod exp;
 mod pow;
-use std::ops::{Add, Mul, Neg};
+mod sub;
 pub use exp::Exp;
 pub use pow::Pow;
+use std::ops::{Add, Mul, Neg};
 
 use crate::exp_macro;
 use crate::pow_macro;
+use crate::pow_non_neg_macro;
 
 #[allow(non_camel_case_types)]
 #[derive(Debug, PartialEq, Copy, Clone)]
@@ -46,7 +47,9 @@ impl<T: Copy + PartialEq + Add<Output = T> + Mul<Output = T>> c<T> {
 
 exp_macro!(f64);
 exp_macro!(f32);
-pow_macro!(i32, i64, i128, u32, u64, u128);
+pow_non_neg_macro!(u8, u32, u64, u128);
+pow_macro!(i8, i32, i64, i128; u8, u32, u64, u128; f32);
+pow_macro!(i8, i32, i64, i128; u8, u32, u64, u128; f64);
 
 #[cfg(test)]
 mod tests {
